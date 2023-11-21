@@ -1,4 +1,7 @@
+import ordinal
+
 from load_excel import load_excel_data
+from collections import Counter
 
 class Color:
     RESET = '\033[0m'
@@ -11,7 +14,13 @@ class Color:
     WHITE = '\033[97m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
-
+# Define the ordinal function
+def ordinal(n):
+    if 10 <= n % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+    return f"{n}{suffix}"
 
 def process_data(all_rows):
     # Extract values from columns
@@ -101,7 +110,49 @@ def process_data(all_rows):
     print(Color.BLUE + f"Average Age of the Interviewees: {average_age:.2f}")
 
 
-    print(Color.GREEN + "-------------- STATISTICS  -----------------------")
+    print(Color.GREEN + "-------------- STATISTICS Mietendeckel -----------------------")
+    non_none_values_u = [value for value in u_values if value is not None]
+    total_count_mietendeckel = len(non_none_values_u)
+
+    sum_mietendeckel = sum(non_none_values_u)
+    average_mietendeckel = sum_mietendeckel / total_count_mietendeckel
+
+    print(Color.YELLOW + f"Total count of valid mietendeckel Interviewees: {total_count_mietendeckel:.2f}")
+    print(Color.YELLOW + f"Average Mietendeckel of the Interviewees: {average_mietendeckel:.2f}")
+
+
+    print(Color.GREEN + "-------------- STATISTICS Makler harte Arbeit -----------------------")
+    non_none_values_o = [value for value in o_values if value is not None]
+    total_count_makler = len(non_none_values_o)
+
+    sum_makler = sum(non_none_values_o)
+    average_makler = sum_makler / total_count_makler
+
+    print(Color.CYAN + f"Total count of valid makler Interviewees: {total_count_makler:.2f}")
+    print(Color.CYAN + f"Average makler hard job of the Interviewees: {average_makler:.2f}")
+
+    print(Color.GREEN + "-------------- STATISTICS Wohnungssuche Optimismus -----------------------")
+    non_none_values_i = [value for value in i_values if value is not None]
+    total_count_optimismus = len(non_none_values_i)
+
+    sum_optimismus = sum(non_none_values_i)
+    average_optimismus = sum_optimismus / total_count_optimismus
+
+    print(Color.MAGENTA + f"Total count of valid makler Interviewees: {total_count_optimismus:.2f}")
+    print(Color.MAGENTA + f"Average optimism rentsearch of the Interviewees: {average_optimismus:.2f}")
+
+    print(Color.GREEN + "-------------- STATISTICS häufigste Art der Wohnung -----------------------")
+
+    # Use Counter to count occurrences of each word
+    word_counts = Counter(g_values)
+
+    # Find the most common words and their counts
+    most_common_words = word_counts.most_common(7)
+
+    for i, (word, count) in enumerate(most_common_words, 1):
+        print(Color.RED + f"{i}. The {ordinal(i)} most common word is '{word}' with {count} occurrences.")
+
+
 
 
 if __name__ == "__main__":
