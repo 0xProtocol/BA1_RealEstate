@@ -1,5 +1,6 @@
 from openpyxl import load_workbook
 
+
 def load_excel_data(file_path):
     wb = load_workbook(file_path)
     ws = wb.active
@@ -20,6 +21,7 @@ def load_excel_data(file_path):
         all_rows.append(current_row)
 
     return all_rows
+
 
 if __name__ == "__main__":
     file_path = 'data.xlsx'
