@@ -130,7 +130,7 @@ for i, (word, count) in enumerate(most_common_words, 1):
 #START GUI
 
 ##HEADER
-st.title("REAL ESTATE ANALYTICS")
+st.markdown("<h1 style='text-align: center;'>REAL ESTATE ANALYTICS</h1>", unsafe_allow_html=True)
 
 st.markdown('### Metrics')
 col1, col2, col3, col4 = st.columns(4)
