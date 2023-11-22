@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
-import plost
 import streamlit as st
 import matplotlib.pyplot as plt
-import plotly.figure_factory as ff
 
 
 from load_excel import load_excel_data
@@ -129,7 +127,11 @@ for i, (word, count) in enumerate(most_common_words, 1):
     print(Color.RED + f"{i}. The {ordinal(i)} most common word is '{word}' with {count} occurrences.")
 
 
-# Row A
+#START GUI
+
+##HEADER
+st.title("REAL ESTATE ANALYTICS")
+
 st.markdown('### Metrics')
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Temperature", percentage_men, percentage_women)
