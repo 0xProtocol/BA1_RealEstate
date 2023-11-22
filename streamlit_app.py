@@ -57,6 +57,10 @@ w_values = [row[22] for row in data]
 x_values = [row[23] for row in data]
 y_values = [row[24] for row in data]
 
+total_rows = len(a_values)
+df = pd.read_excel("data.xlsx")
+total_columns = len(df.columns)
+
 # Statistics IN WEB APP DISPLAY
 print(Color.GREEN + "-------------- STATISTICS GENDER -----------------------")
 total_count = len(x_values)
@@ -130,19 +134,17 @@ for i, (word, count) in enumerate(most_common_words, 1):
 #START GUI
 
 ##HEADER
-st.markdown("<h1 style='text-align: center;'>REAL ESTATE ANALYTICS</h1>", unsafe_allow_html=True)
-st.markdown("""
-        <style>
-        .css-15zrgzn {display: none}
-        </style>
-        """, unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; pointer-events: none;'>REAL ESTATE ANALYTICS</h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: left; pointer-events: none;'>Key Metrics</h2>", unsafe_allow_html=True)
 
-st.markdown('### Metrics')
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Temperature", percentage_men, percentage_women)
-col2.metric("Wind", "9 mph", "-8%")
-col3.metric("Humidity", "86%", "4%")
-col4.metric("Humidity", "86%", "4%")
+# Display metrics side by side
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric(label="Number of interviewees", value=total_rows)
+with col2:
+    st.metric(label="Number of key attributes", value=total_columns)
+with col3:
+    st.metric(label="Place of the statistical survey", value='Vienna')
 
 
 

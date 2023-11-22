@@ -13,12 +13,18 @@
     background-attachment: fixed;
 }
 
-.stApp h1,
 .stApp h2,
 .stApp h3,
 .stApp h4,
 .stApp h5,
 .stApp h6,
 .stApp p {
-    color: white;
+    color: white
+}
+
+.stApp h1 span {
+  background: linear-gradient(to right, #007bff, #33ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: white;
 }
