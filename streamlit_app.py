@@ -151,6 +151,24 @@ average_optimismus = sum_optimismus / total_count_optimismus
 print(Color.MAGENTA + f"Total count of valid makler Interviewees: {total_count_optimismus:.2f}")
 print(Color.MAGENTA + f"Average optimism rentsearch of the Interviewees: {average_optimismus:.2f}")
 
+# Calculate percentages
+percentages = [(value / total_count_optimismus) * 100 for value in non_none_values_i]
+
+# Create a Counter to store counts and percentages for each unique value
+value_counter = Counter(zip(non_none_values_i, percentages))
+
+# Sum percentages for each unique value
+sum_percentages_by_value = {}
+for (value, percentage), count in value_counter.items():
+    if value not in sum_percentages_by_value:
+        sum_percentages_by_value[value] = 0
+    sum_percentages_by_value[value] += percentage * count
+
+# Print sum of percentages for each unique value
+for value, sum_percentage in sum_percentages_by_value.items():
+    print(f"Sum of percentages for value {value}: {sum_percentage:.2f}%")
+
+
 print(Color.GREEN + "-------------- STATISTICS häufigste Art der Wohnung -----------------------")
 
 # Use Counter to count occurrences of each word
@@ -184,8 +202,7 @@ with col2:
 with col3:
     st.metric(label="Place of the statistical survey", value='Vienna')
 
-st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>",
-            unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>", unsafe_allow_html=True)
 # Example data for the first pie chart
 labels1 = ['Men', 'Women', 'None', 'Divers']
 values1 = [25, 30, 15, 30]
@@ -196,15 +213,24 @@ fig1.update_layout(title_text='Gender Distribution', title_font_color='white', t
 fig1.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig1.update_traces(textfont_color='white')
 
-# Example data for the third pie chart
-labels3 = ['Apple', 'Banana', 'Orange', 'Grapes']
-values3 = [30, 25, 20, 25]
-colors3 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+word_counts = Counter(i_values)
+most_common_words = word_counts.most_common(7)
+labels2 = []
+values2 = []
+
+for i, (word, count) in enumerate(most_common_words, 1):
+    label = f"{word}"
+    value = count
+    labels2.append(label)
+    values2.append(value)
+
+colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
 fig2 = go.Figure(
-    data=[go.Pie(labels=labels3, values=values3, textinfo='label+percent', hole=0.3, marker=dict(colors=colors3))])
-fig2.update_layout(title_text='Fruit Distribution', title_font_color='white', title_font_size=23)
+    data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
+fig2.update_layout(title_text='House hunting optimism', title_font_color='white', title_font_size=23)
 fig2.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig2.update_traces(textfont_color='white')
+
 
 # Example data for the second pie chart
 # Use Counter to count occurrences of each word
@@ -287,3 +313,5 @@ with col3:
     st.plotly_chart(fig3, use_container_width=True)
 with col4:
     st.plotly_chart(fig4, use_container_width=True)
+
+st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
