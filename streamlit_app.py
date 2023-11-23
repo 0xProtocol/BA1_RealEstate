@@ -108,6 +108,19 @@ average_age = sum_age / total_count_age
 print(Color.BLUE + f"Total count of valid age Interviewees: {total_count_age:.2f}")
 print(Color.BLUE + f"Average Age of the Interviewees: {average_age:.2f}")
 
+print(Color.GREEN + "-------------- STATISTICS AGE2 -----------------------")
+# Filter out None values
+non_none_values = [value for value in w_values if value is not None]
+# Count occurrences of each age
+age_counts = Counter(non_none_values)
+# Total count of valid ages
+total_count_age = len(non_none_values)
+for age, count in age_counts.items():
+    percentage = (count / total_count_age) * 100
+    print(Color.BLUE + f"Age: {age}, Percentage: {percentage:.2f}%")
+
+
+
 print(Color.GREEN + "-------------- STATISTICS Mietendeckel -----------------------")
 non_none_values_u = [value for value in u_values if value is not None]
 total_count_mietendeckel = len(non_none_values_u)
@@ -216,6 +229,47 @@ fig3.update_layout(title_text='Distribution of Categories', title_font_color='wh
 fig3.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig3.update_traces(textfont_color='white')
 
+
+########################4##############
+# Example data for the second pie chart
+# Use Counter to count occurrences of each word
+# Group ages into ranges of 9 years
+# Filter out None values if present
+w_values = [age for age in w_values if age is not None]
+
+# Group ages into ranges of 9 years
+age_ranges = [(i, i + 9) for i in range(0, max(w_values, default=0) + 1, 9)]
+grouped_values = Counter()
+
+for age in w_values:
+    for age_range in age_ranges:
+        if age_range[0] <= age < age_range[1]:
+            grouped_values[age_range] += 1
+            break
+
+# Find the most common age ranges and their counts
+most_common_age_ranges = grouped_values.most_common(20)
+
+# Initialize arrays for labels and values
+labels2 = []
+values2 = []
+
+for i, (age_range, count) in enumerate(most_common_age_ranges, 1):
+    label = f"{age_range[0]}-{age_range[1]}"
+    value = count
+    labels2.append(label)
+    values2.append(value)
+
+colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+
+fig4 = go.Figure(
+    data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
+
+fig3.update_layout(title_text='Most common Object', title_font_color='white', title_font_size=23)
+fig4.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig4.update_traces(textfont_color='white')
+
+
 # Create a 4-column layout
 col1, col2 = st.columns(2)
 
@@ -232,4 +286,4 @@ col3, col4 = st.columns(2)
 with col3:
     st.plotly_chart(fig3, use_container_width=True)
 with col4:
-    st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig4, use_container_width=True)
