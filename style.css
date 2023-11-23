@@ -1,11 +1,14 @@
-.stApp > header {
-    background-color: transparent;
+/* styles.css */
+
+body {
+    background-color: black;
+    color: white;
 }
 
 .stApp {
+    color: white;
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    color: white;
     overflow: auto;
     background-color: black;
     animation: gradient 15s ease infinite;
@@ -19,12 +22,23 @@
 .stApp h5,
 .stApp h6,
 .stApp p {
-    color: white
+    color: white;
 }
 
 .stApp h1 span {
-  background: linear-gradient(to right, #007bff, #33ccff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: white;
+    background: linear-gradient(to right, #007bff, #33ccff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: white;
+}
+
+.stApp > header {
+    background-color: transparent;
+}
+/* Targeting Plotly chart title and labels */
+.title-text,
+.labels-text,
+.legend text,
+.legendtitle text {
+    fill: white !important;
 }

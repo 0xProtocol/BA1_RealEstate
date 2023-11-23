@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 from load_excel import load_excel_data
@@ -146,18 +148,35 @@ with col2:
 with col3:
     st.metric(label="Place of the statistical survey", value='Vienna')
 
+# Create some example data
+labels = ['Men', 'Women', 'None', 'Divers']
+values = [percentage_men, percentage_women, percentage_none, percentage_divers]
+
+# Define custom colors for each category
+colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+
+# Create a pie chart using Plotly
+fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent', hole=0.3, marker=dict(colors=colors))])
+fig.update_layout(title_text='Percentages of Gender', title_font_color='white')
+
+# Set background color to black
+fig.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+
+# Set text font color explicitly to white
+fig.update_traces(textfont_color='white')
+
+
+# Display the pie chart in Streamlit
+st.plotly_chart(fig, use_container_width=True)
 
 
 
 
-
-chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-st.bar_chart(chart_data)
-
+############################
 
 # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-labels = 'Men', 'Women ', 'None', 'Divers'
-sizes = [percentage_men, percentage_women, percentage_none, percentage_divers]
+labels = 'Men', 'None ', 'Women', 'Divers'
+sizes = [percentage_men, percentage_none, percentage_women, percentage_divers]
 explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
 
 fig1, ax1 = plt.subplots()
