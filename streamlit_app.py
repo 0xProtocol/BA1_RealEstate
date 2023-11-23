@@ -5,9 +5,10 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
 
-
 from load_excel import load_excel_data
 from collections import Counter
+
+
 class Color:
     RESET = '\033[0m'
     RED = '\033[91m'
@@ -19,6 +20,22 @@ class Color:
     WHITE = '\033[97m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+
+st.set_page_config(layout="wide")
+# Add custom CSS to center-align the columns
+st.markdown(
+    """
+    <style>
+        .element-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 def ordinal(n):
     if 10 <= n % 100 <= 20:
@@ -132,96 +149,87 @@ most_common_words = word_counts.most_common(7)
 for i, (word, count) in enumerate(most_common_words, 1):
     print(Color.RED + f"{i}. The {ordinal(i)} most common word is '{word}' with {count} occurrences.")
 
-
-#START GUI
+# START GUI
 
 ##HEADER
 st.markdown("<h1 style='text-align: center; pointer-events: none;'>REAL ESTATE ANALYTICS</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: left; pointer-events: none;'>Key Metrics</h2>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)  # Add a line break for space
+st.markdown("<br>", unsafe_allow_html=True)  # Add a line break for space
+st.markdown("<h2 style='text-align: left; pointer-events: none; color: #33ccff;'>Key Metrics</h2>",
+            unsafe_allow_html=True)
 
 # Display metrics side by side
+
 col1, col2, col3 = st.columns(3)
+
 with col1:
     st.metric(label="Number of interviewees", value=total_rows)
+
 with col2:
     st.metric(label="Number of key attributes", value=total_columns)
+
 with col3:
     st.metric(label="Place of the statistical survey", value='Vienna')
 
-# Create some example data
-labels = ['Men', 'Women', 'None', 'Divers']
-values = [percentage_men, percentage_women, percentage_none, percentage_divers]
+st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>",
+            unsafe_allow_html=True)
+# Example data for the first pie chart
+labels1 = ['Men', 'Women', 'None', 'Divers']
+values1 = [25, 30, 15, 30]
+colors1 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+fig1 = go.Figure(
+    data=[go.Pie(labels=labels1, values=values1, textinfo='label+percent', hole=0.3, marker=dict(colors=colors1))])
+fig1.update_layout(title_text='Gender Distribution', title_font_color='white', title_font_size=23)
+fig1.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig1.update_traces(textfont_color='white')
 
-# Define custom colors for each category
-colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+# Example data for the third pie chart
+labels3 = ['Apple', 'Banana', 'Orange', 'Grapes']
+values3 = [30, 25, 20, 25]
+colors3 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+fig2 = go.Figure(
+    data=[go.Pie(labels=labels3, values=values3, textinfo='label+percent', hole=0.3, marker=dict(colors=colors3))])
+fig2.update_layout(title_text='Fruit Distribution', title_font_color='white', title_font_size=23)
+fig2.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig2.update_traces(textfont_color='white')
 
-# Create a pie chart using Plotly
-fig = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent', hole=0.3, marker=dict(colors=colors))])
-fig.update_layout(title_text='Percentages of Gender', title_font_color='white')
+# Example data for the second pie chart
+# Use Counter to count occurrences of each word
+word_counts = Counter(g_values)
 
-# Set background color to black
-fig.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+# Find the most common words and their counts
+most_common_words = word_counts.most_common(7)
 
-# Set text font color explicitly to white
-fig.update_traces(textfont_color='white')
+# Initialize arrays for labels and values
+labels2 = []
+values2 = []
 
+for i, (word, count) in enumerate(most_common_words, 1):
+    label = f"{word}"
+    value = count
+    labels2.append(label)
+    values2.append(value)
+colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+fig3 = go.Figure(
+    data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
+fig3.update_layout(title_text='Distribution of Categories', title_font_color='white', title_font_size=23)
+fig3.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig3.update_traces(textfont_color='white')
 
-# Display the pie chart in Streamlit
-st.plotly_chart(fig, use_container_width=True)
+# Create a 4-column layout
+col1, col2 = st.columns(2)
 
+# Display the first pie chart in the first column
+with col1:
+    st.plotly_chart(fig1, use_container_width=True)
 
+# Display the second pie chart in the second column
+with col2:
+    st.plotly_chart(fig2, use_container_width=True)
 
-
-############################
-
-# Pie chart, where the slices will be ordered and plotted counter-clockwise:
-labels = 'Men', 'None ', 'Women', 'Divers'
-sizes = [percentage_men, percentage_none, percentage_women, percentage_divers]
-explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
-
-fig1, ax1 = plt.subplots()
-ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-        shadow=True, startangle=90)
-ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-st.pyplot(fig1)
-
-
-##
-# Data
-categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4']
-variable1 = [10, 15, 20, 25]
-variable2 = [5, 12, 18, 22]
-variable3 = [8, 10, 15, 20]
-variable4 = [12, 18, 25, 30]
-
-# Set up positions for bars on X-axis
-x = np.arange(len(categories))
-
-# Set up the figure and axes
-fig, ax = plt.subplots()
-
-# Plot each variable as a separate set of bars
-bar_width = 0.2  # Adjust this value based on your preference
-ax.bar(x - 1.5 * bar_width, variable1, width=bar_width, label='Variable 1')
-ax.bar(x - 0.5 * bar_width, variable2, width=bar_width, label='Variable 2')
-ax.bar(x + 0.5 * bar_width, variable3, width=bar_width, label='Variable 3')
-ax.bar(x + 1.5 * bar_width, variable4, width=bar_width, label='Variable 4')
-
-# Set up labels and title
-ax.set_xticks(x)
-ax.set_xticklabels(categories)
-ax.set_ylabel('Values')
-ax.set_title('Bar Chart with Four Variables')
-
-# Add a legend
-ax.legend()
-
-# Save the plot as an image file (e.g., PNG)
-plt.savefig('bar_chart.png')
-
-# Alternatively, you can save as a PDF
-# plt.savefig('bar_chart.pdf')
-
-# Alternatively, you can display the plot in non-interactive environments
-# plt.show()
+# Create a new column for the third pie chart
+col3, col4 = st.columns(2)
+with col3:
+    st.plotly_chart(fig3, use_container_width=True)
+with col4:
+    st.plotly_chart(fig3, use_container_width=True)
