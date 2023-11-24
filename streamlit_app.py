@@ -209,7 +209,7 @@ with col3:
 st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>", unsafe_allow_html=True)
 # Example data for the first pie chart
 labels1 = ['Men', 'Women', 'None', 'Divers']
-values1 = [25, 30, 15, 30]
+values1 = [percentage_men, percentage_women, percentage_none, percentage_divers]
 colors1 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
 fig1 = go.Figure(
     data=[go.Pie(labels=labels1, values=values1, textinfo='label+percent', hole=0.3, marker=dict(colors=colors1))])
