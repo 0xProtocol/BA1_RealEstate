@@ -5,7 +5,9 @@ body {
     color: white;
 }
 
-.stApp {
+.stApp,
+.sidebar-content,
+.st.sidebar {
     color: white;
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -15,13 +17,12 @@ body {
     background-size: 400% 400%;
     background-attachment: fixed;
 }
-
 .stApp h2,
 .stApp h3,
 .stApp h4,
 .stApp h5,
 .stApp h6,
-.stApp p {
+.stApp p{
     color: white;
 }
 
@@ -35,10 +36,39 @@ body {
 .stApp > header {
     background-color: transparent;
 }
+
 /* Targeting Plotly chart title and labels */
 .title-text,
 .labels-text,
 .legend text,
 .legendtitle text {
     fill: white !important;
+}
+
+/* Move the sidebar styles here */
+[data-testid=stSidebar] {
+    background-color: black;
+    fill: white !important;
+}
+
+[data-testid=stSidebarNavLink] {
+   background-color: black;
+    text-align: center;
+   margin-left: 40px;
+
+}
+span.st-emotion-cache-1egp75f {
+    color: white !important;
+}
+
+span.st-emotion-cache-1rtdyuf
+{
+    color: white !important;
+}
+
+/* Targeting the sidebar */
+.sidebar-content {
+    background-color: black !important;
+    color: black;
+    fill: black !important;
 }

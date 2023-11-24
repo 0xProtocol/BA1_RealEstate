@@ -22,7 +22,8 @@ class Color:
     UNDERLINE = '\033[4m'
 
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide",page_title="Analytics", page_icon="📈")
+
 # Add custom CSS to center-align the columns
 st.markdown(
     """
@@ -36,6 +37,9 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+st.sidebar.header("Plotting Demo2")
+
 
 def ordinal(n):
     if 10 <= n % 100 <= 20:
@@ -315,3 +319,9 @@ with col4:
     st.plotly_chart(fig4, use_container_width=True)
 
 st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
+
+
+####SIDEBAR####
+
+
+#https://blog.streamlit.io/introducing-theming/
