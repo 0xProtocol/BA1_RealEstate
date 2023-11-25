@@ -11,7 +11,7 @@ body {
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     overflow: auto;
-    background-color: black;
+    background-color: darkblue;
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
     background-attachment: fixed;
@@ -90,8 +90,7 @@ span.st-emotion-cache-1rtdyuf
 /* Adding the background color for the specific div */
 .stPlotlyChart {
     background-color: transparent;
-      color: red;
-    border: 2px solid red;
+    border: 2px red;
 }
 
 .plot-container {

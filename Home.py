@@ -215,6 +215,12 @@ fig1 = go.Figure(
     data=[go.Pie(labels=labels1, values=values1, textinfo='label+percent', hole=0.3, marker=dict(colors=colors1))])
 fig1.update_layout(title_text='Gender Distribution', title_font_color='white', title_font_size=23)
 fig1.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig1.update_layout(
+{
+        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
 fig1.update_traces(textfont_color='white')
 
 word_counts = Counter(i_values)
@@ -233,6 +239,12 @@ fig2 = go.Figure(
     data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
 fig2.update_layout(title_text='House hunting optimism', title_font_color='white', title_font_size=23)
 fig2.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig2.update_layout(
+{
+    "paper_bgcolor": "rgba(0, 0, 0, 0)",
+    "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
 fig2.update_traces(textfont_color='white')
 
 
@@ -257,6 +269,12 @@ fig3 = go.Figure(
     data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
 fig3.update_layout(title_text='Distribution of Categories', title_font_color='white', title_font_size=23)
 fig3.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig3.update_layout(
+{
+        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
 fig3.update_traces(textfont_color='white')
 
 
@@ -297,6 +315,12 @@ fig4 = go.Figure(
 
 fig3.update_layout(title_text='Most common Object', title_font_color='white', title_font_size=23)
 fig4.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig4.update_layout(
+{
+        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
 fig4.update_traces(textfont_color='white')
 
 
