@@ -5,7 +5,17 @@ body {
     color: white;
 }
 
-.stApp,
+.stApp
+{
+    color: white;
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-color: black;
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
 .sidebar-content,
 .st.sidebar {
     color: white;
@@ -66,9 +76,26 @@ span.st-emotion-cache-1rtdyuf
     color: white !important;
 }
 
+.eyeqlp51 {
+  fill: deepskyblue; /* Replace #your-desired-color with the color you want */
+}
+
+
 /* Targeting the sidebar */
 .sidebar-content {
     background-color: black !important;
     color: black;
     fill: black !important;
+}
+/* Adding the background color for the specific div */
+.stPlotlyChart {
+    background-color: transparent;
+      color: red;
+    border: 2px solid red;
+}
+
+.plot-container {
+    /*background-color: green;/*
+    color: green;
+    border: 2px solid red; /* Adjust the border width and color as needed */
 }
