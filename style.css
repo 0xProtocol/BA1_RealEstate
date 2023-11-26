@@ -11,7 +11,7 @@ body {
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     overflow: auto;
-    background-color: darkblue;
+    background-color: black;
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
     background-attachment: fixed;
@@ -87,10 +87,16 @@ span.st-emotion-cache-1rtdyuf
     color: black;
     fill: black !important;
 }
+
 /* Adding the background color for the specific div */
 .stPlotlyChart {
-    background-color: transparent;
-    border: 2px red;
+    /* From https://css.glass */
+    background: rgba(42, 38, 38, 0.33);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(42, 38, 38, 0.51);
 }
 
 .plot-container {
