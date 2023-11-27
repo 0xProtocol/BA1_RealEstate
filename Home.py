@@ -216,11 +216,22 @@ fig1 = go.Figure(
 fig1.update_layout(title_text='Gender Distribution', title_font_color='white', title_font_size=23)
 fig1.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig1.update_layout(
+    title_text='Gender Distribution',
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
+    paper_bgcolor='black',
+    plot_bgcolor='black',
+    font_color='white'
+)
+fig1.update_layout(
 {
         "paper_bgcolor": "rgba(0, 0, 0, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
+# Add margin to the title using st.markdown
 fig1.update_traces(textfont_color='white')
 
 word_counts = Counter(i_values)
@@ -348,4 +359,4 @@ st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'
 ####SIDEBAR####
 
 
-#https://blog.streamlit.io/introducing-theming/
+#https://blog.streamlit.io/introducing-theming/ s ss

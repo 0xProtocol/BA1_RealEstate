@@ -4,18 +4,6 @@ body {
     background-color: black;
     color: white;
 }
-
-.stApp
-{
-    color: white;
-    margin: auto;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: auto;
-    background-color: black;
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
-}
 .sidebar-content,
 .st.sidebar {
     color: white;
@@ -37,7 +25,8 @@ body {
 }
 
 .stApp h1 span {
-    background: linear-gradient(to right, #007bff, #33ccff);
+    /*background: linear-gradient(to right, #007bff, #33ccff);*/
+    background: white;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     color: white;
@@ -88,19 +77,47 @@ span.st-emotion-cache-1rtdyuf
     fill: black !important;
 }
 
-/* Adding the background color for the specific div */
-.stPlotlyChart {
-    /* From https://css.glass */
-    background: rgba(42, 38, 38, 0.33);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8.2px);
-    -webkit-backdrop-filter: blur(8.2px);
-    /*border: 1px solid rgba(42, 38, 38, 0.51);*/
-}
-
 .plot-container {
     /*background-color: green;/*
     color: green;
     border: 2px solid red; /* Adjust the border width and color as needed */
+}
+
+/* DESIGN 1 black grey*/
+/*
+.stApp
+{
+    color: white;
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: linear-gradient(45deg, #29323c, #485563);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
+    backdrop-filter: blur(8.2px);
+    -webkit-backdrop-filter: blur(8.2px);
+    border: 1px solid rgba(42, 38, 38, 0.51);
+    border: 10px  rgba(255, 0, 0, 0.51);
+}*/
+/* DESIGN 2 */
+.stApp
+{
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/6.png");
+    background-size: cover;
+    animation: gradient 15s ease infinite;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
 }
