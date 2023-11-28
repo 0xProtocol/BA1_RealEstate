@@ -106,12 +106,98 @@ span.st-emotion-cache-1rtdyuf
     border: 10px  rgba(255, 0, 0, 0.51);
 }*/
 /* DESIGN 2 */
-.stApp
+/*.stApp
 {
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     overflow: auto;
     background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/6.png");
+    background-size: cover;
+    animation: gradient 15s ease infinite;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
+}*/
+/* DESIGN 3 */
+/*
+.stApp
+{
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/1.png");
+    background-size: cover;
+    animation: gradient 15s ease infinite;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
+}*/
+/* DESIGN 4 */
+/*
+.stApp
+{
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/2.png");
+    background-size: cover;
+    animation: gradient 15s ease infinite;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
+}*/
+/* DESIGN 5 */
+/*
+.stApp
+{
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/3.png");
+    background-size: cover;
+    animation: gradient 15s ease infinite;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
+}
+*/
+/* DESIGN 6 */
+/*
+.stApp
+{
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/4.png");
+    background-size: cover;
+    animation: gradient 15s ease infinite;
+    background-attachment: fixed;
+}
+.stPlotlyChart {
+   background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
+}
+*/
+/* DESIGN 7 */
+.stApp
+{
+    margin: auto;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    background-image: url("https://codervent.com/dashtreme/demo/rtl/vertical/assets/images/bg-themes/5.png");
     background-size: cover;
     animation: gradient 15s ease infinite;
     background-attachment: fixed;
