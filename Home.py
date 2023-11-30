@@ -4,9 +4,11 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
+from streamlit.components.v1 import components
 
 from load_excel import load_excel_data
 from collections import Counter
+from streamlit_card import card
 
 
 class Color:
@@ -187,24 +189,30 @@ for i, (word, count) in enumerate(most_common_words, 1):
 # START GUI
 
 ##HEADER
-st.markdown("<h1 style='text-align: center; pointer-events: none;'>REAL ESTATE ANALYTICS</h1>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)  # Add a line break for space
-st.markdown("<br>", unsafe_allow_html=True)  # Add a line break for space
-st.markdown("<h2 style='text-align: left; pointer-events: none; color: #33ccff;'>Key Metrics</h2>",
-            unsafe_allow_html=True)
+def custom_card(title, total, from_last_week):
+    return f"""
+        <div class="custom-card">
+            <h6>{title}</h6>
+            <h5>{total}</h5>
+            <p>{from_last_week}</p>
+        </div>
+    """
 
-# Display metrics side by side
-
-col1, col2, col3 = st.columns(3)
+# Create three cards and display them side by side
+col1, col2, col3,col4 = st.columns(4)
 
 with col1:
-    st.metric(label="Number of interviewees", value=total_rows)
+    st.markdown(custom_card("Interviewees", total_rows, "34 from last week"), unsafe_allow_html=True)
 
 with col2:
-    st.metric(label="Number of key attributes", value=total_columns)
+    st.markdown(custom_card("Number of key attributes", total_columns, "Up"), unsafe_allow_html=True)
 
 with col3:
-    st.metric(label="Place of the statistical survey", value='Vienna')
+    st.markdown(custom_card("Place of the statistical survey", "Vienna", "Vienna"), unsafe_allow_html=True)
+
+with col4:
+    st.markdown(custom_card("Other", total_rows, "Other"), unsafe_allow_html=True)
+
 
 st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>", unsafe_allow_html=True)
 # Example data for the first pie chart
@@ -314,7 +322,7 @@ labels2 = []
 values2 = []
 
 for i, (age_range, count) in enumerate(most_common_age_ranges, 1):
-    label = f"{age_range[0]}-{age_range[1]}"
+    label = f" {age_range[0]}-{age_range[1]}"
     value = count
     labels2.append(label)
     values2.append(value)
@@ -356,7 +364,8 @@ with col4:
 st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
 
 
+
 ####SIDEBAR####
 
 
-#https://blog.streamlit.io/introducing-theming/ s ss s
+# ... (rest of the existing code)
