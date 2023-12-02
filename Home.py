@@ -4,7 +4,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
-from streamlit.components.v1 import components
+from streamlit.components.v1 import components, html
 
 from load_excel import load_excel_data
 from collections import Counter
@@ -25,6 +25,15 @@ class Color:
 
 
 st.set_page_config(layout="wide",page_title="Analytics", page_icon="📈")
+html(
+    """
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
+    """,
+    height=0,
+)
+
+
+
 
 # Add custom CSS to center-align the columns
 st.markdown(
@@ -190,8 +199,17 @@ for i, (word, count) in enumerate(most_common_words, 1):
 
 ##HEADER
 def custom_card(title, total, from_last_week):
-    return f"""
+    return f""" 
         <div class="custom-card">
+            <h6>{title}</h6>
+            <h5>{total}</h5>
+            <p>{from_last_week}</p>
+        </div>
+    """
+
+def custom_card2(title, total, from_last_week):
+    return f"""
+        <div class="custom-card2">
             <h6>{title}</h6>
             <h5>{total}</h5>
             <p>{from_last_week}</p>
@@ -208,13 +226,13 @@ with col2:
     st.markdown(custom_card("Number of key attributes", total_columns, "Up"), unsafe_allow_html=True)
 
 with col3:
-    st.markdown(custom_card("Place of the statistical survey", "Vienna", "Vienna"), unsafe_allow_html=True)
+    st.markdown(custom_card2("Place of the statistical survey", "Vienna", "Vienna"), unsafe_allow_html=True)
 
 with col4:
-    st.markdown(custom_card("Other", total_rows, "Other"), unsafe_allow_html=True)
+    st.markdown(custom_card2("Other", total_rows, "Other"), unsafe_allow_html=True)
 
 
-st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>", unsafe_allow_html=True)
+#st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>", unsafe_allow_html=True)
 # Example data for the first pie chart
 labels1 = ['Men', 'Women', 'None', 'Divers']
 values1 = [percentage_men, percentage_women, percentage_none, percentage_divers]
