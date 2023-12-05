@@ -1,7 +1,7 @@
 /* styles.css */
 
 body {
-    background-color: black;
+    background-color: red;
     color: white;
 }
 .sidebar-content,
@@ -10,7 +10,7 @@ body {
     margin: auto;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     overflow: auto;
-    background-color: black;
+    background-color: red;
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
     background-attachment: fixed;
@@ -46,14 +46,16 @@ body {
 
 /* Move the sidebar styles here */
 [data-testid=stSidebar] {
-    background-color: black;
+    background-color: rgb(0 0 0 / 20%);
+    border-radius: 16px;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, .12);
     fill: white !important;
 }
 
 [data-testid=stSidebarNavLink] {
-   background-color: black;
+    background-color: transparent;
     text-align: center;
-   margin-left: 40px;
+    margin-left: 40px;
 
 }
 span.st-emotion-cache-1egp75f {
@@ -66,15 +68,15 @@ span.st-emotion-cache-1rtdyuf
 }
 
 .eyeqlp51 {
-  fill: deepskyblue; /* Replace #your-desired-color with the color you want */
+  fill: deepskyblue;
 }
 
 
 /* Targeting the sidebar */
 .sidebar-content {
-    background-color: black !important;
-    color: black;
-    fill: black !important;
+    background-color: red !important;
+    color: red;
+    fill: red !important;
 }
 
 .plot-container {
@@ -273,4 +275,17 @@ span.st-emotion-cache-1rtdyuf
     font-size: 15px;
     margin-top: -15px;
     padding-bottom: 15px;
+}
+.modebar-group {
+    background-color: transparent;
+    border-radius: 16px;
+}
+#modebar-0f8e4f {
+    background-color: transparent;
+    border-radius: 16px;
+}
+
+.modebar.modebar--hover.ease-bg {
+    background-color: transparent;
+    border-radius: 16px;
 }

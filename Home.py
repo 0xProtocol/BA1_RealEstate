@@ -49,7 +49,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.sidebar.header("Plotting Demo2")
+#st.sidebar.header("Plotting Demo2")
 
 
 def ordinal(n):
@@ -199,11 +199,11 @@ for i, (word, count) in enumerate(most_common_words, 1):
 
 ##HEADER
 def custom_card(title, total, from_last_week):
-    return f""" 
+    return f"""  
         <div class="custom-card">
             <h6>{title}</h6>
             <h5>{total}</h5>
-            <p>{from_last_week}</p>
+            <p>{from_last_week}</p>  
         </div>
     """
 
@@ -247,17 +247,16 @@ fig1.update_layout(
     title_font_size=23,
     title_x=0.03,  # Set the title's x position to the center (0 to 1)
     title_y=0.94,  # Set the title's y position (0 to 1)
-    paper_bgcolor='black',
-    plot_bgcolor='black',
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
     font_color='white'
 )
 fig1.update_layout(
-{
-        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+    {
+        "paper_bgcolor": "rgba(48, 52, 68, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
-# Add margin to the title using st.markdown
 fig1.update_traces(textfont_color='white')
 
 word_counts = Counter(i_values)
@@ -275,11 +274,20 @@ colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
 fig2 = go.Figure(
     data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
 fig2.update_layout(title_text='House hunting optimism', title_font_color='white', title_font_size=23)
+fig2.update_layout(
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
 fig2.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig2.update_layout(
-{
-    "paper_bgcolor": "rgba(0, 0, 0, 0)",
-    "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    {
+        "paper_bgcolor": "rgba(52,60,76, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
 fig2.update_traces(textfont_color='white')
@@ -304,11 +312,20 @@ for i, (word, count) in enumerate(most_common_words, 1):
 colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
 fig3 = go.Figure(
     data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
-fig3.update_layout(title_text='Distribution of Categories', title_font_color='white', title_font_size=23)
+fig3.update_layout(title_text='Property type', title_font_color='white', title_font_size=23)
 fig3.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig3.update_layout(
-{
-        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+fig3.update_layout(
+    {
+        "paper_bgcolor": "rgba(48, 52, 68, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
@@ -350,11 +367,20 @@ colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
 fig4 = go.Figure(
     data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
 
-fig3.update_layout(title_text='Most common Object', title_font_color='white', title_font_size=23)
+fig4.update_layout(title_text='Distribution of Ages', title_font_color='white', title_font_size=23)
 fig4.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig4.update_layout(
-{
-        "paper_bgcolor": "rgba(0, 0, 0, 0)",
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+fig4.update_layout(
+    {
+        "paper_bgcolor": "rgba(56,60,76, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
@@ -379,7 +405,7 @@ with col3:
 with col4:
     st.plotly_chart(fig4, use_container_width=True)
 
-st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
+#st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
 
 
 
