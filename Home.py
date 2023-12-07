@@ -8,8 +8,6 @@ from streamlit.components.v1 import components, html
 
 from load_excel import load_excel_data
 from collections import Counter
-from streamlit_card import card
-
 
 class Color:
     RESET = '\033[0m'
@@ -410,6 +408,24 @@ with col4:
 
 
 ####SIDEBAR####
+# FIGURE -> ORT
+# FIGURE -> BEFRAGER
+# FIGURE -> BEFRAGUNGSDATUM
+# FIGURE -> WOHNUNG ZUFRIEDENHEIT
+# FIGURE -> MIETHÖHE
+# FIGURE -> WOHNPOLITIK
+# FIGURE -> ZUR VERFÜFUNG
+# FIGURE -> UMGANG VERMIETER
+# FIGURE -> VERMIETER ARBEIT
+# FIGURE -> VERMIETER ARBEIT NEGATION
+# FIGURE -> MARKLER HARTE ARBEIT
+# FIGURE -> MARKLER HARTE ARBEIT NEGATION
+# FIGURE -> MAKLER WICHTIGE ARBEIT
+# FIGURE -> MAKLER WICHTIGE NEGATION
+# FIGURE -> VERMIETER BERUF
+# FIGURE -> Einstellung Verm.
+# FIGURE -> Mietendeckel
+# FIGURE -> Einstellung. Makler
+# FIGURE -> Alter
 
 
-# ... (rest of the existing code)
