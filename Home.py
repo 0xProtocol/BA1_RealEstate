@@ -196,6 +196,10 @@ for i, (word, count) in enumerate(most_common_words, 1):
 # START GUI
 
 ##HEADER
+
+   # text_search = st.text_input("Search videos by title or speaker", value="", key="unique_key_for_text_input")
+
+
 def custom_card(title, total, from_last_week):
     return f"""  
         <div class="custom-card">
@@ -234,28 +238,44 @@ with col4:
 # Example data for the first pie chart
 labels1 = ['Men', 'Women', 'None', 'Divers']
 values1 = [percentage_men, percentage_women, percentage_none, percentage_divers]
-colors1 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
-fig1 = go.Figure(
-    data=[go.Pie(labels=labels1, values=values1, textinfo='label+percent', hole=0.3, marker=dict(colors=colors1))])
-fig1.update_layout(title_text='Gender Distribution', title_font_color='white', title_font_size=23)
-fig1.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+
+# Create a 3D scatter plot with fig1
+fig1 = go.Figure(go.Scatter3d(
+    x=labels1,
+    y=[1] * len(labels1),  # Set a constant y-coordinate for all points
+    z=values1,
+    mode='markers',
+    marker=dict(
+        size=12,
+        color=values1,
+        colorscale='Viridis',
+        opacity=0.8
+    )
+))
+
+# Update layout
 fig1.update_layout(
-    title_text='Gender Distribution',
+    scene=dict(
+        xaxis=dict(title='Categories'),
+        yaxis=dict(title=''),
+        zaxis=dict(title='Values'),
+    ),
+    title_text='Gender Distribution (3D Scatter Plot)',
     title_font_color='white',
     title_font_size=23,
-    title_x=0.03,  # Set the title's x position to the center (0 to 1)
-    title_y=0.94,  # Set the title's y position (0 to 1)
+    title_x=0.03,
+    title_y=0.94,
     paper_bgcolor='rgba(0, 0, 0, 0.1)',
     plot_bgcolor='rgba(0, 0, 0, 0.1)',
     font_color='white'
 )
+
 fig1.update_layout(
     {
         "paper_bgcolor": "rgba(48, 52, 68, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
-fig1.update_traces(textfont_color='white')
 
 word_counts = Counter(i_values)
 most_common_words = word_counts.most_common(7)
@@ -293,6 +313,8 @@ fig2.update_traces(textfont_color='white')
 
 # Example data for the second pie chart
 # Use Counter to count occurrences of each word
+# Example data for the second bar chart
+# Use Counter to count occurrences of each word
 word_counts = Counter(g_values)
 
 # Find the most common words and their counts
@@ -307,9 +329,12 @@ for i, (word, count) in enumerate(most_common_words, 1):
     value = count
     labels2.append(label)
     values2.append(value)
-colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#34495e', '#e67e22']
+
 fig3 = go.Figure(
-    data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
+    data=[go.Bar(x=labels2, y=values2, marker_color=colors2)],
+)
+
 fig3.update_layout(title_text='Property type', title_font_color='white', title_font_size=23)
 fig3.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig3.update_layout(
@@ -327,7 +352,7 @@ fig3.update_layout(
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
-fig3.update_traces(textfont_color='white')
+fig3.update_traces(marker_line_color='black', marker_line_width=1.5, opacity=0.8)
 
 
 ########################4##############
@@ -337,37 +362,105 @@ fig3.update_traces(textfont_color='white')
 # Filter out None values if present
 w_values = [age for age in w_values if age is not None]
 
-# Group ages into ranges of 9 years
-age_ranges = [(i, i + 9) for i in range(0, max(w_values, default=0) + 1, 9)]
-grouped_values = Counter()
+# Calculate number of bins dynamically
+num_bins = int(np.sqrt(len(w_values)))
 
-for age in w_values:
-    for age_range in age_ranges:
-        if age_range[0] <= age < age_range[1]:
-            grouped_values[age_range] += 1
-            break
+# Create an array of colors for each bin
+colors = [
+    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
+    '#9467bd', '#8c564b', '#e377c2', '#7f7f7f',
+    '#bcbd22', '#17becf', '#aec7e8', '#ffbb78',
+    '#98df8a', '#ff9896', '#c5b0d5', '#c49c94'
+]
 
-# Find the most common age ranges and their counts
-most_common_age_ranges = grouped_values.most_common(20)
+# Create a histogram with specified colors for fig4
+fig4 = go.Figure(go.Histogram(x=w_values, nbinsx=num_bins, marker_color=colors))
+
+# Update layout
+fig4.update_layout(
+    title_text='Distribution of Ages',
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,
+    title_y=0.94,
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+
+fig4.update_layout(
+    {
+        "paper_bgcolor": "rgba(56,60,76, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
+
+
+#st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
+
+
+#5 ORT
+word_counts = Counter(d_values)
+most_common_words = word_counts.most_common(10)
+
+labels5 = []
+values5 = []
+
+for i, (word, count) in enumerate(most_common_words, 1):
+    label = f"{word}"
+    value = count
+    labels5.append(label)
+    values5.append(value)
+
+# Using a different color scale for better visibility
+colors5 = ['#1f77b4', '#aec7e8', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b']
+
+
+# Create a horizontal bar chart for fig5
+fig5 = go.Figure(go.Bar(x=values5, y=labels5, orientation='h', marker_color=colors5))
+
+# Update layout
+fig5.update_layout(
+    title_text='Place (Horizontal Bar Chart)',
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,
+    title_y=0.94,
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+
+fig5.update_layout(
+    {
+        "paper_bgcolor": "rgba(48, 52, 68, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
+
+fig5.update_traces(textfont_color='white')
+# FIGURE -> BEFRAGER
+
+word_counts = Counter(e_values)
+
+# Find the most common words and their counts
+most_common_words = word_counts.most_common(14)
 
 # Initialize arrays for labels and values
 labels2 = []
 values2 = []
 
-for i, (age_range, count) in enumerate(most_common_age_ranges, 1):
-    label = f" {age_range[0]}-{age_range[1]}"
+for i, (word, count) in enumerate(most_common_words, 1):
+    label = f"{word}"
     value = count
     labels2.append(label)
     values2.append(value)
-
 colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
-
-fig4 = go.Figure(
+fig6 = go.Figure(
     data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
-
-fig4.update_layout(title_text='Distribution of Ages', title_font_color='white', title_font_size=23)
-fig4.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
-fig4.update_layout(
+fig6.update_layout(title_text='Interviewer', title_font_color='white', title_font_size=23)
+fig6.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig6.update_layout(
     title_font_color='white',
     title_font_size=23,
     title_x=0.03,  # Set the title's x position to the center (0 to 1)
@@ -376,13 +469,13 @@ fig4.update_layout(
     plot_bgcolor='rgba(0, 0, 0, 0.1)',
     font_color='white'
 )
-fig4.update_layout(
+fig6.update_layout(
     {
-        "paper_bgcolor": "rgba(56,60,76, 0)",
+        "paper_bgcolor": "rgba(48, 52, 68, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
-fig4.update_traces(textfont_color='white')
+fig6.update_traces(textfont_color='white')
 
 
 # Create a 4-column layout
@@ -403,13 +496,16 @@ with col3:
 with col4:
     st.plotly_chart(fig4, use_container_width=True)
 
-#st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
+col5, col6 = st.columns(2)
+with col5:
+    st.plotly_chart(fig5, use_container_width=True)
+with col6:
+    st.plotly_chart(fig6, use_container_width=True)
+
 
 
 
 ####SIDEBAR####
-# FIGURE -> ORT
-# FIGURE -> BEFRAGER
 # FIGURE -> BEFRAGUNGSDATUM
 # FIGURE -> WOHNUNG ZUFRIEDENHEIT
 # FIGURE -> MIETHÖHE
