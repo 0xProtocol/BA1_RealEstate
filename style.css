@@ -314,10 +314,8 @@ span.st-emotion-cache-1rtdyuf
 }
 
 .st-be {
-    /* Add your styles for the outer container div (data-baseweb="input") here */
-    /* For example: */
     background-color: #2a313a;
-    padding: 8px;
+    border-radius: 10px;
 }
 
 .st-b4 input {
@@ -325,5 +323,26 @@ span.st-emotion-cache-1rtdyuf
     /* For example: */
     width: 100%; /* Make the input take the full width */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    color: #2a313a;
+}
+
+.st-ae {
+    /* Add your custom CSS styles here */
+    background-color: #2a313a;
+    color: white;
+    /* Add more styles as needed */
+}
+.st-by
+{
+    background-color: #2a313a;
     color:white;
+}
+.st-d2
+{
+
+}
+
+.st-cf path {
+   fill: deepskyblue;
+    /* Adjust the color as needed */
 }

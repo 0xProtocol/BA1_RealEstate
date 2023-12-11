@@ -31,14 +31,21 @@ html(
 )
 
 
-# Create the text input field
-search_query = st.text_input("", "")
+suggestions = ["","gender", "optimism", "property type", "age distribution", "place", "interviewer"]
+
+# Create a suggestion dropdown
+search_query = st.selectbox("", suggestions)
+
 st.markdown("""
     <style>
         /* Adjust the margin-top value to move the search input higher */
-        .stTextInput {
+        .st-ax {
             margin-top: -100px !important;
         }
+         .st-cu {
+        margin-top: 200px;
+        /* Adjust the margin-top value as needed */
+    }
     </style>
 """, unsafe_allow_html=True)
 
