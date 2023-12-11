@@ -31,7 +31,16 @@ html(
 )
 
 
-
+# Create the text input field
+search_query = st.text_input("", "")
+st.markdown("""
+    <style>
+        /* Adjust the margin-top value to move the search input higher */
+        .stTextInput {
+            margin-top: -100px !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Add custom CSS to center-align the columns
 st.markdown(
@@ -220,6 +229,16 @@ def custom_card2(title, total, from_last_week):
 
 # Create three cards and display them side by side
 col1, col2, col3,col4 = st.columns(4)
+
+st.markdown("""
+    <style>
+        /* Adjust the margin-top value to move the cards higher */
+        .custom-card, .custom-card2 {
+            margin-top: -55px !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 
 with col1:
     st.markdown(custom_card("Interviewees", total_rows, "34 from last week"), unsafe_allow_html=True)
@@ -477,32 +496,33 @@ fig6.update_layout(
 )
 fig6.update_traces(textfont_color='white')
 
-
-# Create a 4-column layout
 col1, col2 = st.columns(2)
 
-# Display the first pie chart in the first column
-with col1:
-    st.plotly_chart(fig1, use_container_width=True)
+if search_query.strip() == "":
+    # Display all figures if the search bar is empty
+    col1.plotly_chart(fig1, use_container_width=True)
+    col1.plotly_chart(fig2, use_container_width=True)
+    col1.plotly_chart(fig3, use_container_width=True)
+    col2.plotly_chart(fig4, use_container_width=True)
+    col2.plotly_chart(fig5, use_container_width=True)
+    col2.plotly_chart(fig6, use_container_width=True)
+else:
+    search_query_lower = search_query.lower()
 
-# Display the second pie chart in the second column
-with col2:
-    st.plotly_chart(fig2, use_container_width=True)
-
-# Create a new column for the third pie chart
-col3, col4 = st.columns(2)
-with col3:
-    st.plotly_chart(fig3, use_container_width=True)
-with col4:
-    st.plotly_chart(fig4, use_container_width=True)
-
-col5, col6 = st.columns(2)
-with col5:
-    st.plotly_chart(fig5, use_container_width=True)
-with col6:
-    st.plotly_chart(fig6, use_container_width=True)
-
-
+    if "gender" in search_query_lower:
+        col1.plotly_chart(fig1, use_container_width=True)
+    elif "optimism" in search_query_lower:
+        col1.plotly_chart(fig2, use_container_width=True)
+    elif "property type" in search_query_lower:
+        col1.plotly_chart(fig3, use_container_width=True)
+    elif "age distribution" in search_query_lower:
+        col2.plotly_chart(fig4, use_container_width=True)
+    elif "place" in search_query_lower:
+        col2.plotly_chart(fig5, use_container_width=True)
+    elif "interviewer" in search_query_lower:
+        col2.plotly_chart(fig6, use_container_width=True)
+    else:
+        st.write("No matching figure found. Please refine your search.")
 
 
 ####SIDEBAR####

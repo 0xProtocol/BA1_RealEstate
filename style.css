@@ -289,3 +289,41 @@ span.st-emotion-cache-1rtdyuf
     background-color: transparent;
     border-radius: 16px;
 }
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchbar {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+}
+
+.searchbar:focus {
+    border-color: #007BFF;
+}
+
+.st-be {
+    /* Add your styles for the outer container div (data-baseweb="input") here */
+    /* For example: */
+    background-color: #2a313a;
+    padding: 8px;
+}
+
+.st-b4 input {
+    /* Add your styles for the input element here */
+    /* For example: */
+    width: 100%; /* Make the input take the full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    color:white;
+}
