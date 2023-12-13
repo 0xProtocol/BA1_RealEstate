@@ -31,7 +31,7 @@ html(
 )
 
 
-suggestions = ["","gender", "optimism", "property type", "age distribution", "place", "interviewer"]
+suggestions = ["","gender", "optimism", "property type", "age distribution", "place", "interviewer", "housing politics", "rent amount"]
 
 # Create a suggestion dropdown
 search_query = st.selectbox("", suggestions)
@@ -264,44 +264,28 @@ with col4:
 # Example data for the first pie chart
 labels1 = ['Men', 'Women', 'None', 'Divers']
 values1 = [percentage_men, percentage_women, percentage_none, percentage_divers]
-
-# Create a 3D scatter plot with fig1
-fig1 = go.Figure(go.Scatter3d(
-    x=labels1,
-    y=[1] * len(labels1),  # Set a constant y-coordinate for all points
-    z=values1,
-    mode='markers',
-    marker=dict(
-        size=12,
-        color=values1,
-        colorscale='Viridis',
-        opacity=0.8
-    )
-))
-
-# Update layout
+colors1 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+fig1 = go.Figure(
+    data=[go.Pie(labels=labels1, values=values1, textinfo='label+percent', hole=0.3, marker=dict(colors=colors1))])
+fig1.update_layout(title_text='Gender Distribution', title_font_color='white', title_font_size=23)
+fig1.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
 fig1.update_layout(
-    scene=dict(
-        xaxis=dict(title='Categories'),
-        yaxis=dict(title=''),
-        zaxis=dict(title='Values'),
-    ),
-    title_text='Gender Distribution (3D Scatter Plot)',
+    title_text='Gender Distribution',
     title_font_color='white',
     title_font_size=23,
-    title_x=0.03,
-    title_y=0.94,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
     paper_bgcolor='rgba(0, 0, 0, 0.1)',
     plot_bgcolor='rgba(0, 0, 0, 0.1)',
     font_color='white'
 )
-
 fig1.update_layout(
     {
         "paper_bgcolor": "rgba(48, 52, 68, 0)",
         "plot_bgcolor": "rgba(0, 0, 0, 0)",
     }
 )
+fig1.update_traces(textfont_color='white')
 
 word_counts = Counter(i_values)
 most_common_words = word_counts.most_common(7)
@@ -447,7 +431,7 @@ fig5 = go.Figure(go.Bar(x=values5, y=labels5, orientation='h', marker_color=colo
 
 # Update layout
 fig5.update_layout(
-    title_text='Place (Horizontal Bar Chart)',
+    title_text='Place',
     title_font_color='white',
     title_font_size=23,
     title_x=0.03,
@@ -503,6 +487,79 @@ fig6.update_layout(
 )
 fig6.update_traces(textfont_color='white')
 
+# FIGURE -> WOHNPOLITIK
+word_counts = Counter(j_values)
+most_common_words = word_counts.most_common(7)
+labels2 = []
+values2 = []
+
+for i, (word, count) in enumerate(most_common_words, 1):
+    label = f"{word}"
+    value = count
+    labels2.append(label)
+    values2.append(value)
+
+colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+fig7 = go.Figure(
+    data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
+fig7.update_layout(title_text='Housing politics', title_font_color='white', title_font_size=23)
+fig7.update_layout(
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+fig7.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig7.update_layout(
+    {
+        "paper_bgcolor": "rgba(52,60,76, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
+fig7.update_traces(textfont_color='white')
+
+# FIGURE -> MIETHÖHE
+word_counts = Counter(h_values)
+most_common_words = word_counts.most_common(7)
+labels2 = []
+values2 = []
+
+for i, (word, count) in enumerate(most_common_words, 1):
+    label = f"{word}"
+    value = count
+    labels2.append(label)
+    values2.append(value)
+
+colors2 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
+fig8 = go.Figure(
+    data=[go.Pie(labels=labels2, values=values2, textinfo='label+percent', hole=0.3, marker=dict(colors=colors2))])
+fig8.update_layout(title_text='Rent amount', title_font_color='white', title_font_size=23)
+fig8.update_layout(
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,  # Set the title's x position to the center (0 to 1)
+    title_y=0.94,  # Set the title's y position (0 to 1)
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+fig8.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='white')
+fig8.update_layout(
+    {
+        "paper_bgcolor": "rgba(52,60,76, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
+fig8.update_traces(textfont_color='white')
+
+
+
+
+
+##SEARCHHHHHHHHHHHHHHHHHHHHHH
 col1, col2 = st.columns(2)
 
 if search_query.strip() == "":
@@ -510,9 +567,11 @@ if search_query.strip() == "":
     col1.plotly_chart(fig1, use_container_width=True)
     col1.plotly_chart(fig2, use_container_width=True)
     col1.plotly_chart(fig3, use_container_width=True)
+    col1.plotly_chart(fig7, use_container_width=True)
     col2.plotly_chart(fig4, use_container_width=True)
     col2.plotly_chart(fig5, use_container_width=True)
     col2.plotly_chart(fig6, use_container_width=True)
+    col2.plotly_chart(fig8, use_container_width=True)
 else:
     search_query_lower = search_query.lower()
 
@@ -528,6 +587,10 @@ else:
         col2.plotly_chart(fig5, use_container_width=True)
     elif "interviewer" in search_query_lower:
         col2.plotly_chart(fig6, use_container_width=True)
+    elif "housing politics" in search_query_lower:
+        col2.plotly_chart(fig7, use_container_width=True)
+    elif "rent amount" in search_query_lower:
+        col2.plotly_chart(fig8, use_container_width=True)
     else:
         st.write("No matching figure found. Please refine your search.")
 
@@ -535,8 +598,6 @@ else:
 ####SIDEBAR####
 # FIGURE -> BEFRAGUNGSDATUM
 # FIGURE -> WOHNUNG ZUFRIEDENHEIT
-# FIGURE -> MIETHÖHE
-# FIGURE -> WOHNPOLITIK
 # FIGURE -> ZUR VERFÜFUNG
 # FIGURE -> UMGANG VERMIETER
 # FIGURE -> VERMIETER ARBEIT
@@ -549,6 +610,5 @@ else:
 # FIGURE -> Einstellung Verm.
 # FIGURE -> Mietendeckel
 # FIGURE -> Einstellung. Makler
-# FIGURE -> Alter
 
 
