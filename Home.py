@@ -4,10 +4,14 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import plotly.express as px
 import plotly.graph_objects as go
+
 from streamlit.components.v1 import components, html
+from collections import Counter
+from scipy.stats import chisquare
 
 from load_excel import load_excel_data
 from collections import Counter
+from scipy.stats import kendalltau
 
 class Color:
     RESET = '\033[0m'
@@ -555,6 +559,115 @@ fig8.update_layout(
 )
 fig8.update_traces(textfont_color='white')
 
+# FIGURE -> WOHNPOLITIK (auf Gender aufgeteilt)
+word_counts = Counter(j_values)
+most_common_words = word_counts.most_common(7)
+adjusted_j_values = [j * 1.059938212 if x == 'M' else j * 0.948675663 if x == 'W' else j for x, j in zip(x_values, j_values) if j is not None]
+adjusted_j_values_men = [j * 1.059938212 for x, j in zip(x_values, j_values) if x == 'M' and j is not None]
+adjusted_j_values_women = [j * 0.948675663 for x, j in zip(x_values, j_values) if x == 'D' and j is not None]
+
+durchschnitt = sum(adjusted_j_values) / len(adjusted_j_values) if adjusted_j_values else 0
+durchschnitt2 = sum(adjusted_j_values_men) / len(adjusted_j_values_men) if adjusted_j_values_men else 0
+durchschnitt3 = sum(adjusted_j_values_women) / len(adjusted_j_values_women) if adjusted_j_values_women else 0
+
+labels9 = ['MIXED','MEN','WOMAN']
+values9 = [durchschnitt,durchschnitt2,durchschnitt3]
+print(Color.MAGENTA + f"Total count of valid : {durchschnitt:.2f}")
+
+colors9 = ['#1f77b4', '#aec7e8', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b']
+
+
+# Create a horizontal bar chart for fig5
+fig9 = go.Figure(go.Bar(x=values9, y=labels9, orientation='h', marker_color=colors9))
+
+# Update layout
+fig9.update_layout(
+    title_text='Place',
+    title_font_color='white',
+    title_font_size=23,
+    title_x=0.03,
+    title_y=0.94,
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white'
+)
+
+fig9.update_layout(
+    {
+        "paper_bgcolor": "rgba(48, 52, 68, 0)",
+        "plot_bgcolor": "rgba(0, 0, 0, 0)",
+    }
+)
+
+fig9.update_traces(textfont_color='white')
+
+
+
+# FIGURE -> CHI CHI CHI
+category_counts = Counter(j_values)
+
+observed_frequencies = list(category_counts.values())
+
+unique_categories = len(category_counts)
+
+expected_frequencies = [len(j_values) / unique_categories] * unique_categories
+
+chi2_stat, p_value = chisquare(observed_frequencies, f_exp=expected_frequencies)
+
+
+categories = list(category_counts.keys())
+observed_frequencies = list(category_counts.values())
+
+fig10 = go.Figure()
+
+fig10.add_trace(go.Bar(x=categories, y=observed_frequencies, name='Beobachtet', marker_color='blue'))
+
+fig10.add_trace(go.Bar(x=categories, y=expected_frequencies, name='Erwartet', marker_color='red'))
+
+fig10.update_layout(
+    title_text='Vergleich von beobachteten und erwarteten Häufigkeiten',
+    title_x=0.03,
+    title_y=0.94,
+    title_font_color='white',
+    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    font_color='white',
+    barmode='group'
+)
+
+fig10.update_traces(textfont_color='white')
+
+print(f"Chi-Quadrat-Statistik: {chi2_stat}, p-Wert: {p_value}")
+
+# FIGURE -> KENDALL
+filtered_o_values = []
+filtered_q_values = []
+for o, q in zip(o_values, q_values):
+    if o is not None and q is not None:
+        filtered_o_values.append(o)
+        filtered_q_values.append(q)
+
+if filtered_o_values and filtered_q_values:
+    tau, p_value = kendalltau(filtered_o_values, filtered_q_values)
+
+    kendall_values = [tau]
+    categories = ['Kendall Tau']
+
+    fig11 = go.Figure()
+
+    fig11.add_trace(go.Bar(x=categories, y=kendall_values, name='Kendall Tau', marker_color='blue'))
+
+    fig11.update_layout(
+        title_text='Kendall Tau Koeffizient zwischen o_values und q_values',
+        title_x=0.03,
+        title_y=0.94,
+        title_font_color='white',
+        paper_bgcolor='rgba(0, 0, 0, 0.1)',
+        plot_bgcolor='rgba(0, 0, 0, 0.1)',
+        font_color='white'
+    )
+
+    fig11.update_traces(textfont_color='white')
 
 
 
@@ -568,10 +681,14 @@ if search_query.strip() == "":
     col1.plotly_chart(fig2, use_container_width=True)
     col1.plotly_chart(fig3, use_container_width=True)
     col1.plotly_chart(fig7, use_container_width=True)
+    col1.plotly_chart(fig9, use_container_width=True)
+    col1.plotly_chart(fig11, use_container_width=True)
     col2.plotly_chart(fig4, use_container_width=True)
     col2.plotly_chart(fig5, use_container_width=True)
     col2.plotly_chart(fig6, use_container_width=True)
     col2.plotly_chart(fig8, use_container_width=True)
+    col2.plotly_chart(fig10, use_container_width=True)
+
 else:
     search_query_lower = search_query.lower()
 
