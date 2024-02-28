@@ -1,18 +1,16 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
-import plotly.express as px
 import plotly.graph_objects as go
 
 from streamlit.components.v1 import components, html
-from collections import Counter
 from scipy.stats import chisquare
 
 from load_excel import load_excel_data
 from collections import Counter
 from scipy.stats import kendalltau
 
+# define a class for color codes in the terminal output
 class Color:
     RESET = '\033[0m'
     RED = '\033[91m'
@@ -25,8 +23,9 @@ class Color:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-
+# configure Streamlit page
 st.set_page_config(layout="wide",page_title="Analytics", page_icon="📈")
+# add external CSS file for styling
 html(
     """
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.0/css/boxicons.min.css">
@@ -34,12 +33,13 @@ html(
     height=0,
 )
 
+# list of suggestions for search
+suggestions = ["","gender", "optimism", "property type", "age distribution", "place", "interviewer", "housing politics", "rent amount", "housing policy", "chi"]
 
-suggestions = ["","gender", "optimism", "property type", "age distribution", "place", "interviewer", "housing politics", "rent amount"]
-
-# Create a suggestion dropdown
+# suggestion dropdown
 search_query = st.selectbox("", suggestions)
 
+# add custom CSS for styling
 st.markdown("""
     <style>
         /* Adjust the margin-top value to move the search input higher */
@@ -53,7 +53,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Add custom CSS to center-align the columns
+# add custom CSS to center-align the columns
 st.markdown(
     """
     <style>
@@ -67,9 +67,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-#st.sidebar.header("Plotting Demo2")
-
-
+# determine the ordinal suffix
 def ordinal(n):
     if 10 <= n % 100 <= 20:
         suffix = 'th'
@@ -81,8 +79,10 @@ def ordinal(n):
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+# read data
 data = load_excel_data("data.xlsx")
-# Extract values from columns
+
+# extract values from columns
 a_values = [row[0] for row in data]
 b_values = [row[1] for row in data]
 c_values = [row[2] for row in data]
@@ -109,6 +109,7 @@ w_values = [row[22] for row in data]
 x_values = [row[23] for row in data]
 y_values = [row[24] for row in data]
 
+# get total number of rows and columns in the dataset
 total_rows = len(a_values)
 df = pd.read_excel("data.xlsx")
 total_columns = len(df.columns)
@@ -151,8 +152,6 @@ total_count_age = len(non_none_values)
 for age, count in age_counts.items():
     percentage = (count / total_count_age) * 100
     print(Color.BLUE + f"Age: {age}, Percentage: {percentage:.2f}%")
-
-
 
 print(Color.GREEN + "-------------- STATISTICS Mietendeckel -----------------------")
 non_none_values_u = [value for value in u_values if value is not None]
@@ -213,12 +212,7 @@ most_common_words = word_counts.most_common(7)
 for i, (word, count) in enumerate(most_common_words, 1):
     print(Color.RED + f"{i}. The {ordinal(i)} most common word is '{word}' with {count} occurrences.")
 
-# START GUI
-
-##HEADER
-
-   # text_search = st.text_input("Search videos by title or speaker", value="", key="unique_key_for_text_input")
-
+######### START GUI #########
 
 def custom_card(title, total, from_last_week):
     return f"""  
@@ -252,20 +246,19 @@ st.markdown("""
 
 
 with col1:
-    st.markdown(custom_card("Interviewees", total_rows, "34 from last week"), unsafe_allow_html=True)
+    st.markdown(custom_card("Interviewees", total_rows, ""), unsafe_allow_html=True)
 
 with col2:
-    st.markdown(custom_card("Number of key attributes", total_columns, "Up"), unsafe_allow_html=True)
+    st.markdown(custom_card("Number of key attributes", total_columns, ""), unsafe_allow_html=True)
 
 with col3:
-    st.markdown(custom_card2("Place of the statistical survey", "Vienna", "Vienna"), unsafe_allow_html=True)
+    st.markdown(custom_card2("Place of the statistical survey", "Vienna", ""), unsafe_allow_html=True)
 
 with col4:
-    st.markdown(custom_card2("Other", total_rows, "Other"), unsafe_allow_html=True)
+    st.markdown(custom_card2("Number of charts", 10, ""), unsafe_allow_html=True)
 
 
-#st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Basic Statistics</h2>", unsafe_allow_html=True)
-# Example data for the first pie chart
+# data for the gender pie chart
 labels1 = ['Men', 'Women', 'None', 'Divers']
 values1 = [percentage_men, percentage_women, percentage_none, percentage_divers]
 colors1 = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12']
@@ -277,8 +270,8 @@ fig1.update_layout(
     title_text='Gender Distribution',
     title_font_color='white',
     title_font_size=23,
-    title_x=0.03,  # Set the title's x position to the center (0 to 1)
-    title_y=0.94,  # Set the title's y position (0 to 1)
+    title_x=0.03,
+    title_y=0.94,
     paper_bgcolor='rgba(0, 0, 0, 0.1)',
     plot_bgcolor='rgba(0, 0, 0, 0.1)',
     font_color='white'
@@ -291,6 +284,7 @@ fig1.update_layout(
 )
 fig1.update_traces(textfont_color='white')
 
+# house hunting optimism chart
 word_counts = Counter(i_values)
 most_common_words = word_counts.most_common(7)
 labels2 = []
@@ -325,10 +319,7 @@ fig2.update_layout(
 fig2.update_traces(textfont_color='white')
 
 
-# Example data for the second pie chart
-# Use Counter to count occurrences of each word
-# Example data for the second bar chart
-# Use Counter to count occurrences of each word
+# property type chart
 word_counts = Counter(g_values)
 
 # Find the most common words and their counts
@@ -354,8 +345,8 @@ fig3.update_layout(paper_bgcolor='black', plot_bgcolor='black', font_color='whit
 fig3.update_layout(
     title_font_color='white',
     title_font_size=23,
-    title_x=0.03,  # Set the title's x position to the center (0 to 1)
-    title_y=0.94,  # Set the title's y position (0 to 1)
+    title_x=0.03,
+    title_y=0.94,
     paper_bgcolor='rgba(0, 0, 0, 0.1)',
     plot_bgcolor='rgba(0, 0, 0, 0.1)',
     font_color='white'
@@ -369,11 +360,7 @@ fig3.update_layout(
 fig3.update_traces(marker_line_color='black', marker_line_width=1.5, opacity=0.8)
 
 
-########################4##############
-# Example data for the second pie chart
-# Use Counter to count occurrences of each word
-# Group ages into ranges of 9 years
-# Filter out None values if present
+# Distribution of Ages chart
 w_values = [age for age in w_values if age is not None]
 
 # Calculate number of bins dynamically
@@ -410,10 +397,9 @@ fig4.update_layout(
 )
 
 
-#st.markdown("<h2 style='text-align: left; color: #33ccff; pointer-events: none;'>Advanced Statistics</h2>", unsafe_allow_html=True)
 
 
-#5 ORT
+# place chart
 word_counts = Counter(d_values)
 most_common_words = word_counts.most_common(10)
 
@@ -453,8 +439,9 @@ fig5.update_layout(
 )
 
 fig5.update_traces(textfont_color='white')
-# FIGURE -> BEFRAGER
 
+
+#Interviewer chart
 word_counts = Counter(e_values)
 
 # Find the most common words and their counts
@@ -491,7 +478,7 @@ fig6.update_layout(
 )
 fig6.update_traces(textfont_color='white')
 
-# FIGURE -> WOHNPOLITIK
+# wohnpolitik chart
 word_counts = Counter(j_values)
 most_common_words = word_counts.most_common(7)
 labels2 = []
@@ -525,7 +512,7 @@ fig7.update_layout(
 )
 fig7.update_traces(textfont_color='white')
 
-# FIGURE -> MIETHÖHE
+# rent amount chart
 word_counts = Counter(h_values)
 most_common_words = word_counts.most_common(7)
 labels2 = []
@@ -559,7 +546,7 @@ fig8.update_layout(
 )
 fig8.update_traces(textfont_color='white')
 
-# FIGURE -> WOHNPOLITIK (auf Gender aufgeteilt)
+# FIGURE -> Housing policy (broken down by gender)
 word_counts = Counter(j_values)
 most_common_words = word_counts.most_common(7)
 adjusted_j_values = [j * 1.059938212 if x == 'M' else j * 0.948675663 if x == 'W' else j for x, j in zip(x_values, j_values) if j is not None]
@@ -603,7 +590,7 @@ fig9.update_traces(textfont_color='white')
 
 
 
-# FIGURE -> CHI CHI CHI
+# FIGURE -> CHI Quadrat
 category_counts = Counter(j_values)
 
 observed_frequencies = list(category_counts.values())
@@ -620,12 +607,12 @@ observed_frequencies = list(category_counts.values())
 
 fig10 = go.Figure()
 
-fig10.add_trace(go.Bar(x=categories, y=observed_frequencies, name='Beobachtet', marker_color='blue'))
 
+fig10.add_trace(go.Bar(x=categories, y=observed_frequencies, name='Beobachtet', marker_color='blue'))
 fig10.add_trace(go.Bar(x=categories, y=expected_frequencies, name='Erwartet', marker_color='red'))
 
 fig10.update_layout(
-    title_text='Vergleich von beobachteten und erwarteten Häufigkeiten',
+    title_text='Comparison of observed and expected frequencies',
     title_x=0.03,
     title_y=0.94,
     title_font_color='white',
@@ -653,26 +640,26 @@ if filtered_o_values and filtered_q_values:
     kendall_values = [tau]
     categories = ['Kendall Tau']
 
-    fig11 = go.Figure()
+    # fig11 = go.Figure()
 
-    fig11.add_trace(go.Bar(x=categories, y=kendall_values, name='Kendall Tau', marker_color='blue'))
+    #   fig11.add_trace(go.Bar(x=categories, y=kendall_values, name='Kendall Tau', marker_color='blue'))
 
-    fig11.update_layout(
-        title_text='Kendall Tau Koeffizient zwischen o_values und q_values',
-        title_x=0.03,
-        title_y=0.94,
-        title_font_color='white',
-        paper_bgcolor='rgba(0, 0, 0, 0.1)',
-        plot_bgcolor='rgba(0, 0, 0, 0.1)',
-        font_color='white'
-    )
+    # fig11.update_layout(
+    #   title_text='Kendall Tau Koeffizient zwischen o_values und q_values',
+    #   title_x=0.03,
+    #     title_y=0.94,
+    #    title_font_color='white',
+    #    paper_bgcolor='rgba(0, 0, 0, 0.1)',
+    #    plot_bgcolor='rgba(0, 0, 0, 0.1)',
+    #    font_color='white'
+    # )
 
-    fig11.update_traces(textfont_color='white')
-
-
+#   fig11.update_traces(textfont_color='white')
 
 
-##SEARCHHHHHHHHHHHHHHHHHHHHHH
+
+
+#search logic
 col1, col2 = st.columns(2)
 
 if search_query.strip() == "":
@@ -682,7 +669,7 @@ if search_query.strip() == "":
     col1.plotly_chart(fig3, use_container_width=True)
     col1.plotly_chart(fig7, use_container_width=True)
     col1.plotly_chart(fig9, use_container_width=True)
-    col1.plotly_chart(fig11, use_container_width=True)
+    #col1.plotly_chart(fig11, use_container_width=True)
     col2.plotly_chart(fig4, use_container_width=True)
     col2.plotly_chart(fig5, use_container_width=True)
     col2.plotly_chart(fig6, use_container_width=True)
@@ -708,24 +695,11 @@ else:
         col2.plotly_chart(fig7, use_container_width=True)
     elif "rent amount" in search_query_lower:
         col2.plotly_chart(fig8, use_container_width=True)
+    elif "housing policy" in search_query_lower:
+        col1.plotly_chart(fig9, use_container_width=True)
+    elif "chi" in search_query_lower:
+        col2.plotly_chart(fig10, use_container_width=True)
     else:
         st.write("No matching figure found. Please refine your search.")
-
-
-####SIDEBAR####
-# FIGURE -> BEFRAGUNGSDATUM
-# FIGURE -> WOHNUNG ZUFRIEDENHEIT
-# FIGURE -> ZUR VERFÜFUNG
-# FIGURE -> UMGANG VERMIETER
-# FIGURE -> VERMIETER ARBEIT
-# FIGURE -> VERMIETER ARBEIT NEGATION
-# FIGURE -> MARKLER HARTE ARBEIT
-# FIGURE -> MARKLER HARTE ARBEIT NEGATION
-# FIGURE -> MAKLER WICHTIGE ARBEIT
-# FIGURE -> MAKLER WICHTIGE NEGATION
-# FIGURE -> VERMIETER BERUF
-# FIGURE -> Einstellung Verm.
-# FIGURE -> Mietendeckel
-# FIGURE -> Einstellung. Makler
 
 

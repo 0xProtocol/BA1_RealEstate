@@ -1,4 +1,4 @@
-#DEPRECATED
+#DEPRECATED FIRST VERSION IN CONSOLE
 import ordinal
 
 from load_excel import load_excel_data
