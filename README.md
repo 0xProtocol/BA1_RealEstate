@@ -1,4 +1,4 @@
 # BA1_RealEstate
 
-# Start in python with
+Start the program:
 streamlit run $PATH\Home.py
