@@ -1,4 +1,4 @@
 # BA1_RealEstate
 
-# DEPLOYED ON
-https://realestateanalytics.streamlit.app 
+# Start in python with
+streamlit run $PATH\Home.py
